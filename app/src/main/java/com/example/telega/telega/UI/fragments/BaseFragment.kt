@@ -5,12 +5,14 @@ import com.example.telega.telega.utilits.APP_ACTIVITY
 
 open class BaseFragment( layout:Int) : Fragment(layout) {
 
-    override fun onStart() {
+    override fun onStart()
+    {
         super.onStart()
         APP_ACTIVITY.mAppDrawer.disableDrawer()
     }
 
-    override fun onStop() {
+    override fun onStop()
+    {
         super.onStop()
         APP_ACTIVITY.mAppDrawer.enableDrawer()
     }
