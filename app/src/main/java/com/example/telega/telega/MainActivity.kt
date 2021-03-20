@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
     lateinit var mAppDrawer: AppDrawer
     private lateinit var mToolbar: androidx.appcompat.widget.Toolbar
-    private lateinit var Test:String
     override fun onCreate(savedInstanceState: Bundle?) {
         /* Функция запускается один раз, при создании активити */
         super.onCreate(savedInstanceState)
