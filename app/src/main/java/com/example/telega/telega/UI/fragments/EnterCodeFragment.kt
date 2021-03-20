@@ -1,0 +1,48 @@
+package com.example.telega.telega.UI.fragments
+
+import androidx.fragment.app.Fragment
+import com.example.telega.telega.MainActivity
+import com.example.telega.telega.activities.RegisterActivity
+import com.example.telega.telega.utilits.*
+import com.example.telegram.R
+import com.google.firebase.auth.PhoneAuthProvider
+import kotlinx.android.synthetic.main.fragment_enter_code.*
+
+class EnterCodeFragment(val phoneNumber: String, val id: String) :
+        Fragment(R.layout.fragment_enter_code) {
+
+
+    override fun onStart() {
+        super.onStart()
+        (activity as RegisterActivity).title = phoneNumber
+        registerInputCode.addTextChangedListener(AppTextWatcher {
+            val string = registerInputCode.text.toString()
+            if (string.length == 6) {
+                enterCode()
+            }
+        })
+    }
+
+    private fun enterCode() {
+        /* Функция проверяет код, если все нормально, производит создания информации о пользователе в базе данных.*/
+        val code = registerInputCode.text.toString()
+        val credential = PhoneAuthProvider.getCredential(id, code)
+        AUTH.signInWithCredential(credential).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val uid = AUTH.currentUser?.uid.toString()
+                val dateMap = mutableMapOf<String, Any>()
+                dateMap[CHILD_ID] = uid
+                dateMap[CHILD_PHONE] = phoneNumber
+                dateMap[CHILD_USERNAME] = uid
+
+                REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dateMap)
+                        .addOnCompleteListener { task2 ->
+                            if (task2.isSuccessful) {
+                                showToast("Добро пожаловать")
+                                REGISTER_ACTIVITY.replaceActivity(MainActivity())
+                            } else showToast(task2.exception?.message.toString())
+                        }
+            } else showToast(task.exception?.message.toString())
+        }
+    }
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.telega.telega.UI.fragments.EnterCodeFragment">
+
+    <ImageView
+        android:id="@+id/register_image"
+        android:padding="@dimen/vertical_large_margin"
+        android:layout_width="155dp"
+        android:layout_height="77dp"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/ic_register_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/register_text_enter_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/vertical_margin"
+        android:text="@string/register_text_enter_code"
+        android:textStyle="bold"
+        android:textSize="@dimen/normalText"
+        android:textColor="@color/colorBlack"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/register_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <TextView
+        android:id="@+id/registedr_text_we_sent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/vertical_margin"
+        android:gravity="center"
+        style="@style/SmallText"
+        android:text="@string/register_text_we_sent"
+        app:layout_constraintTop_toBottomOf="@+id/register_text_enter_code"/>
+
+    <EditText
+        android:id="@+id/registerInputCode"
+        style="@style/EditText"
+        android:maxLines="6"
+        android:hint="@string/register_hint_default_code"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registedr_text_we_sent"
+        android:autofillHints=""
+        tools:ignore="LabelFor" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
