@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
             mAppDrawer.create()
             replaceFragment(ChatsFragment(), false)
         }
-
         else
         {
             replaceActivity(RegisterActivity())
