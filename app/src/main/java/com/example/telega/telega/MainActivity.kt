@@ -1,7 +1,9 @@
 package com.example.telega.telega
 
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import com.example.telega.telega.UI.fragments.ChatsFragment
 import com.example.telega.telega.UI.objects.AppDrawer
 import com.example.telega.telega.activities.RegisterActivity
@@ -14,16 +16,26 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
     lateinit var mAppDrawer: AppDrawer
     private lateinit var mToolbar: androidx.appcompat.widget.Toolbar
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         /* Функция запускается один раз, при создании активити */
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         APP_ACTIVITY = this
         initFireBase()
+        initContacts()
         initUser {
             initFields()
             initFunc()
+        }
+    }
+
+    private fun initContacts()
+    {
+        if (verifyPermission(READ_CONTACTS))
+        {
+            showToast("Чтение контактов")
         }
     }
 
@@ -65,4 +77,13 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         AppStatus.updateStates(AppStatus.OFFLINE)
     }
-}
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (ContextCompat.checkSelfPermission(APP_ACTIVITY, READ_CONTACTS) == PackageManager.PERMISSION_GRANTED)
+            {
+                initContacts()
+            }
+        }
+    }
