@@ -11,20 +11,26 @@ class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
         initFullnameList()
     }
 
-    private fun initFullnameList() {
+    private fun initFullnameList()
+    {
         val fullnameList = USER.fullname.split(" ")
-        if (fullnameList.size > 1) {
+        if (fullnameList.size > 1)
+        {
             settings_input_name.setText(fullnameList[0])
             settings_input_surname.setText(fullnameList[1])
         } else settings_input_name.setText(fullnameList[0])
     }
 
-    override fun change() {
+    override fun change()
+    {
         val name = settings_input_name.text.toString()
         val surname = settings_input_surname.text.toString()
-        if (name.isEmpty()){
+        if (name.isEmpty())
+        {
             showToast(getString(R.string.settings_toast_name_is_epmty))
-        } else {
+        }
+        else
+        {
             val fullname = "$name $surname"
             REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_FULLNAME)
                 .setValue(fullname).addOnCompleteListener {
@@ -34,7 +40,7 @@ class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
                         APP_ACTIVITY.mAppDrawer.updateHeader()
                         fragmentManager?.popBackStack()
                     }
-                }
+                    }
         }
     }
 }
