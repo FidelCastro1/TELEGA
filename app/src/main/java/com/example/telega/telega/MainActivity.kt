@@ -9,6 +9,9 @@ import com.example.telega.telega.UI.objects.AppDrawer
 import com.example.telega.telega.activities.RegisterActivity
 import com.example.telega.telega.utilits.*
 import com.example.telegram.databinding.ActivityMainBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -24,20 +27,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(mBinding.root)
         APP_ACTIVITY = this
         initFireBase()
-        initContacts()
         initUser {
+
+           CoroutineScope(Dispatchers.IO).launch { initContacts() }
             initFields()
             initFunc()
         }
     }
 
-    private fun initContacts()
-    {
-        if (verifyPermission(READ_CONTACTS))
-        {
-            showToast("Чтение контактов")
-        }
-    }
+
 
     private fun initFunc() {
         /* Функция инициализирует функциональность приложения */
